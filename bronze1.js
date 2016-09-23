@@ -5,7 +5,9 @@
 
 
 // game loop
+
 while (true) {
+
     var inputs = readline().split(' ');
     var x = parseInt(inputs[0]);
     var y = parseInt(inputs[1]);
@@ -16,11 +18,38 @@ while (true) {
     var inputs = readline().split(' ');
     var opponentX = parseInt(inputs[0]);
     var opponentY = parseInt(inputs[1]);
-    var thrust = parseInt(accel(angleThrust,distThrust));
+
+
+    var thrust = accel(angleThrust,distThrust);
     var angleThrust = 0;
     var angleDist = 0;
+    var boost = 0;
+
+
     // Write an action using print()
     // To debug: printErr('Debug messages...');
+
+    function accel(a,b) {
+
+        if (a === parseInt(a) && b === parseInt(b)) {
+            return parseInt((a + b) / 2);
+        }
+
+        else if (a !== parseInt(a) && b !== parseInt(b)) {
+            return 'BOOST';
+        }
+
+        else if (a !== parseInt(a) || b !== parseInt(b)) {
+            if (a !== parseInt(a) || b === parseInt(b)) {
+                return parseInt((b + 100) / 2);
+            }
+            else {
+                return parseInt((a + 100) / 2);
+            }
+        }
+
+
+    }
 
 
 
@@ -48,18 +77,18 @@ while (true) {
     }
 
     else if (nextCheckpointAngle === 0 || nextCheckpointAngle === 0) { //22.5Deg Angle Manuveure
-        var thrust = 'BOOST';
+        var distThrust = 'BOOST';
     }
 
 
     //CHECKPOINT DISTANCE
 
     if (nextCheckpointDist > 8000) {
-        var distThrust = 100;
+        var distThrust = 'BOOST';
     }
 
     else if (nextCheckpointDist > 5000) {
-        var thrust = 'BOOST';
+        var distThrust = 'BOOST';
     }
 
     else if (nextCheckpointDist > 3000) {
@@ -88,15 +117,7 @@ while (true) {
     // followed by the power (0 <= thrust <= 100) or "BOOST"
     // i.e.: "x y thrust"
 
-    function accel(angleThrust,distThrust) {
-        if (angleThrust == 'BOOST' && distThrust == 100) {
-            return 'BOOST'
-        }
-        else {
-            return (angleThrust + distThrust) / 2;
-        }
 
-    }
 
 
 
